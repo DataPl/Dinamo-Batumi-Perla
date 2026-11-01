@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0d16" media="(prefers-color-scheme: dark)">
+<title>Dinamo Batumi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#0d1220;--mut:#566074;--line:#dfe3ec;--ac:#1432a6;--on:#fff;--sun:#f6dc72;--win:#13764a;--lose:#b3261e;--draw:#7c8394;--hero:#1432a6;--hero2:#0f2688;
+--d:"Big Shoulders Display","Arial Narrow",sans-serif;--b:"Hanken Grotesk",system-ui,sans-serif;
+--ease:cubic-bezier(.23,1,.32,1);--drawer:cubic-bezier(.32,.72,0,1)}
+@media(prefers-color-scheme:dark){:root{--bg:#0a0d16;--card:#121724;--ink:#eceef4;--mut:#9aa1b3;--line:#232a3b;--ac:#8ea6ff;--on:#0a0d16;--win:#4cc38a;--lose:#ff7a70;--draw:#8b92a3;--hero:#1a2f94;--hero2:#101d66}}
+*{box-sizing:border-box;margin:0}
+html{-webkit-tap-highlight-color:transparent;overscroll-behavior:none;scroll-padding-top:120px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:1rem/1.55 var(--b);-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom)}
+button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-select:none}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+/* header */
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:2px solid var(--ink);padding-top:env(safe-area-inset-top)}
+header .wrap{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.crest{width:40px;height:40px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;font:700 16px var(--d);letter-spacing:.04em;flex:none}
+.brand{font:700 1.6rem/1 var(--d);text-transform:uppercase;letter-spacing:.02em;margin-right:auto}
+nav{display:flex;gap:4px;overflow-x:auto;max-width:100%;scrollbar-width:none}
+nav a{color:var(--mut);text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 12px;border-radius:8px;white-space:nowrap;transition:background-color .15s ease,color .15s ease}
+nav a:active{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+@media(hover:hover) and (pointer:fine){nav a:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 6%,transparent)}}
+/* hero */
+.hero{background:linear-gradient(160deg,var(--hero),var(--hero2));color:#fff;min-height:min(100svh,680px);display:flex;align-items:center;padding:48px 0}
+.hero .wrap{width:100%}
+.pill{display:inline-block;background:var(--sun);color:#1b1500;font-weight:700;font-size:.85rem;padding:4px 12px;border-radius:99px}
+.vs{display:flex;align-items:center;gap:16px;margin:22px 0 8px;font:800 clamp(2.4rem,9vw,5.5rem)/.95 var(--d);text-transform:uppercase;flex-wrap:wrap}
+.vs em{font:600 1.2rem var(--d);font-style:normal;opacity:.7}
+.bd{width:1.1em;height:1.1em;border-radius:50%;border:2px solid currentColor;display:inline-grid;place-items:center;font:700 .32em var(--d);flex:none}
+.bd.me{background:#fff;color:var(--hero);border-color:#fff}
+.meta{opacity:.85;margin-bottom:28px}
+.count{display:flex;gap:clamp(14px,4vw,40px);font-variant-numeric:tabular-nums;margin-bottom:30px}
+.count div{font:700 clamp(3rem,12vw,6.5rem)/1 var(--d)}
+.count small{display:block;font:500 .85rem var(--b);opacity:.75;margin-top:2px}
+.btn{background:#fff;color:#0d1220;border:0;border-radius:10px;padding:12px 20px;font-weight:700;transition:transform .12s var(--ease)}
+.btn:active{transform:scale(.97)}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero .wrap>*{animation:up .45s var(--ease) both;animation-delay:calc(var(--i,0)*60ms)}
+/* sections */
+section{padding:56px 0 8px}
+h2{font:800 clamp(2rem,6vw,3rem)/1 var(--d);text-transform:uppercase;margin-bottom:6px}
+.sub{color:var(--mut);margin-bottom:20px;max-width:60ch}
+.seg{display:flex;gap:6px;margin:16px 0;flex-wrap:wrap}
+.seg button{background:none;border:1px solid var(--line);border-radius:99px;padding:6px 16px;font-weight:600;font-size:.9rem;color:var(--mut);transition:transform .12s var(--ease)}
+.seg button:active{transform:scale(.97)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+/* matches */
+.mrow{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:14px 6px;transition:background-color .15s ease}
+.mrow:active{background:color-mix(in srgb,var(--ink) 9%,transparent)}
+@media(hover:hover) and (pointer:fine){.mrow:hover{background:color-mix(in srgb,var(--ink) 5%,transparent)}}
+.date{width:46px;flex:none;font:600 .8rem/1.1 var(--d);color:var(--mut)}.date b{display:block;color:var(--ink);font-size:1.7rem}
+.t{flex:1;min-width:0}.t div{display:flex;align-items:center;gap:9px;padding:1px 0;font-weight:500}
+.t span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t .bd{font-size:.62rem;width:22px;height:22px;color:var(--ink)}.t .bd.me{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.sc{font:700 1.5rem var(--d);min-width:58px;text-align:right;font-variant-numeric:tabular-nums;flex:none}
+.sc.W{color:var(--win)}.sc.L{color:var(--lose)}.sc.D{color:var(--draw)}.sc.U{font-size:1.05rem;color:var(--mut)}
+.empty{padding:24px 6px;color:var(--mut)}
+/* table */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.95rem}
+th{font:600 .8rem var(--d);color:var(--mut);text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:11px 12px;text-align:right;border-bottom:1px solid var(--line)}
+tr:last-child td{border:0}
+th:nth-child(2),td:nth-child(2){text-align:left;min-width:150px;font-weight:600}
+td:first-child,th:first-child{text-align:center;width:44px}
+tr.me td{background:color-mix(in srgb,var(--ac) 12%,transparent);font-weight:700}
+tr.me td:first-child{box-shadow:inset 4px 0 var(--ac)}
+/* squad */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.pc i{font:700 2.6rem/1 var(--d);font-style:normal;color:var(--ac);font-variant-numeric:tabular-nums}
+.pc b{display:block;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc span{color:var(--mut);font-size:.85rem}
+/* club */
+.club{border-left:6px solid var(--ac);padding:6px 0 6px 20px;font-size:1.15rem;max-width:62ch}
+footer{margin-top:64px;border-top:2px solid var(--ink);padding:20px 0 calc(28px + env(safe-area-inset-bottom));color:var(--mut);font-size:.85rem}
+/* dialog */
+dialog{border:0;padding:0;background:var(--card);color:var(--ink);width:min(520px,100%);margin:auto;border-radius:18px;max-height:88dvh;overflow:auto;overscroll-behavior:contain;opacity:0;transform:translateY(24px);transition:opacity .2s var(--ease),transform .3s var(--drawer),overlay .3s allow-discrete,display .3s allow-discrete}
+dialog[open]{opacity:1;transform:none}
+@starting-style{dialog[open]{opacity:0;transform:translateY(24px)}}
+dialog::backdrop{background:rgba(5,8,20,.6);opacity:0;transition:opacity .2s ease,overlay .3s allow-discrete,display .3s allow-discrete}
+dialog[open]::backdrop{opacity:1}
+@starting-style{dialog[open]::backdrop{opacity:0}}
+@media(max-width:600px){dialog{margin:auto 0 0;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom)}}
+.dh{padding:22px 22px 0}.dh .chip{color:var(--ac);font:600 .95rem var(--d)}
+.dt{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0}
+.dt .tm{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;font:700 1.4rem/1.05 var(--d);text-transform:uppercase;overflow-wrap:anywhere}
+.dt .tm:last-child{align-items:flex-end;text-align:right}
+.dt .bd{width:44px;height:44px;font-size:.9rem}.dt .bd.me{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.dt .big{font:700 2.8rem var(--d);font-variant-numeric:tabular-nums}
+.db{padding:6px 22px 22px;color:var(--mut)}
+.db .btn{background:var(--ink);color:var(--bg);margin-top:14px;width:100%}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .hero .wrap>*{animation:fade .3s ease both;animation-delay:0s}
+ dialog,dialog[open]{transform:none}
+ .btn:active,.seg button:active{transform:none}
+}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <div class="crest" aria-hidden="true">DB</div><div class="brand">Dinamo Batumi</div>
+ <nav aria-label="Sections"><a href="#matches">Matches</a><a href="#table">Table</a><a href="#squad">Squad</a><a href="#club">Club</a></nav>
+</div></header>
+
+<main>
+<div class="hero"><div class="wrap">
+ <span class="pill" id="hc" style="--i:0"></span>
+ <div class="vs" style="--i:1"><span class="bd me" aria-hidden="true">DB</span>Dinamo Batumi <em>vs</em><span class="bd" id="hb" aria-hidden="true"></span><span id="ho"></span></div>
+ <p class="meta" id="hm" style="--i:2"></p>
+ <div class="count" id="cd" style="--i:3" role="timer" aria-label="Time until kick-off"></div>
+ <button class="btn" id="hbtn" style="--i:4">Match details</button>
+</div></div>
+
+<div class="wrap">
+<section id="matches"><h2>Matches</h2><p class="sub">Results and upcoming games across the Erovnuli Liga and the Georgian Cup.</p>
+ <div class="seg" id="mf" role="group" aria-label="Competition"></div><div id="ml"></div></section>
+
+<section id="table"><h2>League table</h2><p class="sub">Erovnuli Liga standings.</p>
+ <div class="tw"><table><thead><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr></thead><tbody id="tb"></tbody></table></div></section>
+
+<section id="squad"><h2>Squad</h2><div class="seg" id="sf" role="group" aria-label="Position"></div><div class="grid" id="sg"></div></section>
+
+<section id="club"><h2>The club</h2><p class="club">Dinamo Batumi play in Batumi, on Georgia’s Black Sea coast, in the Erovnuli Liga and the Georgian Cup. Blue shirts, a home crowd that’s loud by the second half, and a city that comes out on matchday.</p></section>
+</div>
+</main>
+<footer><div class="wrap">Dinamo Batumi · Batumi, Georgia. Fixtures, table and squad shown are sample data.</div></footer>
+
+<dialog id="dlg" aria-labelledby="dtt"><div id="dc"></div></dialog>
+
+<script>
+const LG="Erovnuli Liga",CUP="Georgian Cup",DAY=864e5;
+const initials=n=>{const w=n.trim().split(/\s+/);return(w[0][0]+(w.length>1?w[w.length-1][0]:"")).toUpperCase()};
+const at=(o,h)=>{const d=new Date(Date.now()+o*DAY);d.setHours(h,0,0,0);return d};
+const F=[
+ {o:3,h:19,opp:"Opponent A",c:LG,home:true},
+ {o:10,h:17,opp:"Opponent B",c:CUP,home:false},
+ {o:17,h:19,opp:"Opponent C",c:LG,home:true},
+ {o:-4,h:19,opp:"Opponent D",c:LG,home:false,s:[2,1]},
+ {o:-11,h:17,opp:"Opponent E",c:LG,home:true,s:[1,1]},
+ {o:-18,h:19,opp:"Opponent B",c:CUP,home:true,s:[3,0]},
+ {o:-25,h:19,opp:"Opponent F",c:LG,home:false,s:[0,1]}
+].map(f=>({...f,t:at(f.o,f.h)}));
+const T=[["Opponent A",12,8,2,2],["Dinamo Batumi",12,7,3,2],["Opponent B",12,6,3,3],["Opponent C",12,5,4,3],["Opponent D",12,4,3,5],["Opponent E",12,2,4,6]];
+const P=[[1,"Goalkeeper One","Goalkeeper"],[4,"Defender One","Defender"],[5,"Defender Two","Defender"],[8,"Midfielder One","Midfielder"],[10,"Midfielder Two","Midfielder"],[7,"Forward One","Forward"],[9,"Forward Two","Forward"],[11,"Forward Three","Forward"]];
+const $=id=>document.getElementById(id);
+const fd=(d,o)=>d.toLocaleDateString(undefined,o);
+const ft=d=>d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
+const res=f=>{const [a,b]=f.s;return a>b?"W":a<b?"L":"D"};
+const sides=f=>f.home?["Dinamo Batumi",f.opp]:[f.opp,"Dinamo Batumi"];
+const scoreStr=f=>{const [a,b]=f.s;return f.home?a+" – "+b:b+" – "+a};
+const badge=n=>`<span class="bd${n==="Dinamo Batumi"?" me":""}" aria-hidden="true">${initials(n)}</span>`;
+const venue=f=>f.home?"Adjarabet Arena, Batumi":"Away";
+
+/* hero */
+const next=F.filter(f=>!f.s).sort((a,b)=>a.t-b.t)[0];
+$("hc").textContent=next.c;$("hb").textContent=initials(next.opp);$("ho").textContent=next.opp;
+$("hm").textContent=fd(next.t,{weekday:"long",day:"numeric",month:"long"})+" · "+ft(next.t)+" · "+venue(next);
+const units=[["Days",DAY],["Hours",36e5],["Minutes",6e4],["Seconds",1e3]];
+function tick(){let ms=next.t-Date.now();
+ if(ms<=0){$("cd").innerHTML="<div>Kick-off</div>";return}
+ $("cd").innerHTML=units.map(([l,u])=>{const v=Math.floor(ms/u);ms-=v*u;return`<div>${String(v).padStart(2,"0")}<small>${l}</small></div>`}).join("")}
+tick();setInterval(tick,1000);
+
+/* matches */
+let mf="All";
+function renderMatches(){
+ $("mf").innerHTML=["All",LG,CUP].map(k=>`<button aria-pressed="${k===mf}" data-k="${k}">${k}</button>`).join("");
+ const L=F.filter(f=>mf==="All"||f.c===mf).sort((a,b)=>b.t-a.t);
+ $("ml").innerHTML=L.length?L.map(f=>{const i=F.indexOf(f),[h,a]=sides(f);
+  return`<button class="mrow" data-i="${i}"><div class="date">${fd(f.t,{month:"short"})}<b>${f.t.getDate()}</b></div>
+  <div class="t"><div>${badge(h)}<span>${h}</span></div><div>${badge(a)}<span>${a}</span></div></div>
+  <div class="sc ${f.s?res(f):"U"}">${f.s?scoreStr(f):ft(f.t)}</div></button>`}).join(""):`<p class="empty">No matches yet.</p>`;
+}
+$("mf").onclick=e=>{const k=e.target.closest("button")?.dataset.k;if(k){mf=k;renderMatches()}};
+$("ml").onclick=e=>{const b=e.target.closest(".mrow");if(b)openM(F[+b.dataset.i])};
+$("hbtn").onclick=()=>openM(next);
+
+/* dialog */
+const dlg=$("dlg");
+function openM(f){const [h,a]=sides(f),mid=f.s?`<div class="big">${scoreStr(f)}</div>`:`<div class="big">${ft(f.t)}</div>`;
+ $("dc").innerHTML=`<div class="dh"><div class="chip">${f.c}</div>
+ <div class="dt"><div class="tm">${badge(h)}<span id="dtt">${h}</span></div>${mid}<div class="tm">${badge(a)}<span>${a}</span></div></div></div>
+ <div class="db"><p>${fd(f.t,{weekday:"long",day:"numeric",month:"long",year:"numeric"})}</p><p>${venue(f)}</p>
+ <button class="btn" id="cl">Close</button></div>`;
+ dlg.showModal();$("cl").onclick=()=>dlg.close()}
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+
+/* table */
+$("tb").innerHTML=T.map((r,i)=>`<tr class="${r[0]==="Dinamo Batumi"?"me":""}"><td>${i+1}</td><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[2]*3+r[3]}</td></tr>`).join("");
+
+/* squad */
+let sf="All";
+function renderSquad(){
+ $("sf").innerHTML=["All","Goalkeeper","Defender","Midfielder","Forward"].map(k=>`<button aria-pressed="${k===sf}" data-k="${k}">${k==="All"?k:k+"s"}</button>`).join("");
+ $("sg").innerHTML=P.filter(p=>sf==="All"||p[2]===sf).map(p=>`<div class="pc"><i>${p[0]}</i><b title="${p[1]}">${p[1]}</b><span>${p[2]}</span></div>`).join("");
+}
+$("sf").onclick=e=>{const k=e.target.closest("button")?.dataset.k;if(k){sf=k;renderSquad()}};
+renderMatches();renderSquad();
+</script>
+</body>
+</html>
