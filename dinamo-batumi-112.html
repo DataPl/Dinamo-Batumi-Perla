@@ -1281,65 +1281,6 @@ header{view-transition-name:hdr} nav{view-transition-name:nav}
 .lnk-f input{width:100%;font:400 16px var(--b);color:var(--ink);padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
 .lnk-f input:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
 .lnk-f .btns{margin-top:12px}
-
-/* ---------- 11. motion polish v2 ---------- */
-:root{--ease-drawer:cubic-bezier(.32,.72,0,1)}
-/* 1: every entrance that fell back to built-in "ease" now uses the strong ease-out */
-.anim .card,.anim .grp,.anim .cg,.ld-in .pf-top,.ld-in .pf-l>*,.ld-in2>*,.adg[open]>.adg-b,.adx-body.rev .xtra,.nw,#lupk .lupn{animation-timing-function:var(--ease-out)}
-/* 4: wide rows get a gentler press than buttons (.97 on a full-width row looks heavy) */
-.mi:active,.sq-r:active,.o-an:active{transform:scale(.985)}
-/* 5: switch knob stretches ~12% while pressed, pinned to the side it is moving away from */
-.swr .sw::after{transform-origin:left center;transition:transform .2s var(--ease-out)}
-.swr[aria-checked="true"] .sw::after{transform-origin:right center}
-.swr:active .sw::after{transform:scaleX(1.12)}
-.swr[aria-checked="true"]:active .sw::after{transform:translateX(20px) scaleX(1.12)}
-.swr .sw{transition:background-color .2s var(--ease-out)}
-/* 14 + 15: back-to-top: quick exit, slightly slower eased entrance */
-.totop{transition:opacity .16s var(--ease-out),transform .16s var(--ease-out)}
-.totop.show{transition:opacity .22s var(--ease-out),transform .25s var(--ease-out)}
-/* chevrons: strong ease-out instead of default ease */
-.car,.pf-more svg,.luform svg{transition-timing-function:var(--ease-out)}
-/* never ease-in on UI: toast exit + tab crossfade out */
-.toast{transition:opacity .16s var(--ease-out),transform .2s var(--ease-out)}
-::view-transition-old(root){animation-timing-function:var(--ease-out)}
-/* touch devices fire false hovers on tap */
-@media(hover:none){.cbl div:hover{background:none}}
-@media(prefers-reduced-motion:reduce){
-  .swr:active .sw::after,.swr[aria-checked="true"]:active .sw::after{transform:none}
-  .swr[aria-checked="true"] .sw::after{transform:translateX(20px)}
-  .totop,.totop.show{transition:opacity .2s}
-}
-
-
-/* ---------- 12. creative layer ---------- */
-@keyframes cvRead{to{transform:scaleX(1)}}
-@keyframes cvHdr{to{box-shadow:0 6px 18px -10px #0006}}
-@keyframes cvPill{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
-@keyframes cvBar{from{transform:scaleY(.15);opacity:0}to{transform:none}}
-@media(prefers-reduced-motion:no-preference){
-  .cv-pill-sel{animation:cvPill .3s var(--ease-out) backwards}
-}
-@supports(animation-timeline:scroll()){
-@media(prefers-reduced-motion:no-preference){
-  /* a hairline that fills as you read, plus a header shadow that appears once you leave the top */
-  html::after{content:"";position:fixed;left:0;right:0;top:0;height:2px;z-index:60;background:var(--mark,currentColor);transform:scaleX(0);transform-origin:0 50%;pointer-events:none;animation:cvRead linear both;animation-timeline:scroll(root)}
-  header{animation:cvHdr linear both;animation-timeline:scroll(root);animation-range:0 80px}
-}}
-@media(prefers-reduced-motion:no-preference){
-  /* form pills pop in one after another; ladder bars grow from the baseline */
-  .anim .pill:nth-child(-n+6){animation:cvPill .3s var(--ease-out) backwards}
-  .anim .pill:nth-child(2){animation-delay:30ms}.anim .pill:nth-child(3){animation-delay:60ms}.anim .pill:nth-child(4){animation-delay:90ms}.anim .pill:nth-child(5){animation-delay:120ms}.anim .pill:nth-child(6){animation-delay:150ms}
-  .lad i{transform-origin:50% 100%;animation:cvBar .45s var(--ease-out) backwards;animation-delay:calc(var(--k,0)*18ms)}
-  .lad i:nth-child(1){--k:0}.lad i:nth-child(2){--k:1}.lad i:nth-child(3){--k:2}.lad i:nth-child(4){--k:3}.lad i:nth-child(5){--k:4}.lad i:nth-child(6){--k:5}.lad i:nth-child(7){--k:6}.lad i:nth-child(8){--k:7}.lad i:nth-child(9){--k:8}.lad i:nth-child(10){--k:9}.lad i:nth-child(n+11){--k:10}
-}
-
-
-/* ---------- 13. live countdown ---------- */
-.nxc{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:1fr}
-.nxc>div:last-child:not(:first-child) b{opacity:.85}
-.nxc.tick>div:last-child b{animation:cvTick .25s var(--ease-out)}
-@keyframes cvTick{from{opacity:.35;transform:translateY(-3px)}to{opacity:.85;transform:none}}
-@media(prefers-reduced-motion:reduce){.nxc.tick>div:last-child b{animation:none}}
 </style>
 
 
@@ -1528,7 +1469,7 @@ function countdown(d){
   if (ms <= 0) return `<div class="today">${T("Today")}</div>`;
   const m = Math.floor(ms/60000), h = Math.floor(m/60), dd = Math.floor(h/24);
   const c = (v,l) => `<div><b>${v}</b><span>${l}</span></div>`;
-  return c(dd, ru?"дн":"days") + c(h%24, ru?"ч":"hours") + c(m%60, ru?"мин":"min") + c(Math.floor(ms/1000)%60, ru?"сек":"sec");
+  return c(dd, ru?"дн":"days") + c(h%24, ru?"ч":"hours") + c(m%60, ru?"мин":"min");
 }
 const zoneOf = (i,n) => n < 6 ? "mid" : i === 0 ? "champions" : i <= 2 ? "conference" : i === n-1 ? "relegation" : i >= n-3 ? "playoff" : "mid";
 function oHead(title, link, to){
@@ -1585,7 +1526,7 @@ function renderHome(){
     <div class="nx-lab">${ru?"Следующий матч":"Next match"}</div>
     <div class="nx-top">${next.comp ? `<span style="display:inline-flex;align-items:center;gap:6px">${compHtml(next.comp)}</span>` : ""}${next.stage ? `<span>${esc(stg(next.stage))}</span>` : ""}</div>
     <div class="nx-vs"><div class="nx-tm">${badge(next.home)}${tn(next.home)}</div><div class="nx-at">${ru?"против":"vs"}</div><div class="nx-tm">${badge(next.away)}${tn(next.away)}</div></div>
-    <div class="nxc" data-t="${esc(String(next.date))}">${countdown(next.date)}</div>
+    <div class="nxc">${countdown(next.date)}</div>
     <div class="nx-when">${fmtDate(next.date)}, ${fmtTime(next.date)}${next.venue ? `<small>${esc(next.venue)}</small>` : ""}</div></div>` : ""}
   ${form.length ? oForm(form, ru) : ""}
   ${oStanding(ru)}
@@ -3007,14 +2948,6 @@ const onScroll = () => document.body.classList.toggle("scrolled", scrollY > 4);
 addEventListener("scroll", onScroll, {passive:true}); onScroll();
 /* iOS Safari only shows :active styles when a touch listener exists */
 document.addEventListener("touchstart", () => {}, {passive:true});
-</script>
-<script>
-/* ticks the next-match countdown every second (re-render still refreshes it each minute) */
-setInterval(function(){if(document.hidden)return;var e=document.querySelector(".nxc[data-t]");if(!e)return;
- var ms=new Date(e.dataset.t)-Date.now(),c=e.children;if(ms<=0||c.length!==4)return;
- var v=[Math.floor(ms/864e5),Math.floor(ms/36e5)%24,Math.floor(ms/6e4)%60,Math.floor(ms/1e3)%60];
- for(var k=0;k<4;k++){var n=c[k].firstElementChild;if(n&&n.textContent!=v[k])n.textContent=v[k]}
- e.classList.remove("tick");void e.offsetWidth;e.classList.add("tick")},1000);
 </script>
 </body>
 </html>
