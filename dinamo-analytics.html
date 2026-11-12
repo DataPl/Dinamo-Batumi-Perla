@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Season analytics · Dinamo Batumi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:#f4f3ee;--surface:#fdfcfa;--ink:#0c1020;--mut:#5d6170;--line:#dcdad2;--blue:#1432a6;--mark:#1432a6;--win:#13764a;--draw:#5f677b;--lose:#b3261e;--d:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;--b:"Hanken Grotesk",system-ui,sans-serif;--pad:max(18px,env(safe-area-inset-left),env(safe-area-inset-right))}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0d12;--surface:#12151c;--ink:#ecedf1;--mut:#9aa1b1;--line:#262a36;--blue:#1a37b8;--mark:#8fa8ff;--win:#3ccf8e;--draw:#9aa1b1;--lose:#ff6b61}}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 .9375rem/1.5 var(--b);min-height:100dvh;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:6;display:flex;align-items:center;gap:12px;max-width:680px;margin:0 auto;padding:calc(8px + env(safe-area-inset-top)) var(--pad) 8px;background:var(--bg);border-bottom:1px solid var(--ink)}
+.home{display:flex;align-items:center;gap:12px;min-width:0;color:inherit;text-decoration:none}.home>div{min-width:0}
+header h1{font:700 1.375rem/1 var(--d);letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crest{position:relative;flex:none;width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font:700 .8125rem/1 var(--d);letter-spacing:.04em}
+.crest img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.gear{margin-left:auto;flex:none;width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:8px;background:none;color:var(--ink);cursor:pointer}
+.gear svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ab{border-bottom:1px solid var(--line);padding:4px var(--pad)}
+.hd{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.back{width:44px;height:44px;margin-left:-10px;display:grid;place-items:center;border-radius:8px;color:var(--ink);text-decoration:none}
+.back svg,.sp svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+h1{font:800 1.5rem/1 var(--d);letter-spacing:.04em;text-transform:uppercase}
+header small,.ab small{display:block;color:var(--mut);font-size:.75rem;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{max-width:680px;margin:0 auto;padding:0 var(--pad)}
+select{width:100%;min-height:48px;margin-top:16px;padding:0 14px;background:var(--surface);color:var(--ink);border:1px solid var(--ink);border-radius:6px;font:700 .9375rem var(--b)}
+h2{margin:28px 0 10px;font:700 .75rem var(--d);letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.tiles div{padding:12px 8px;text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tiles div:nth-child(3n){border-right:0}.tiles div:nth-child(n+4){border-bottom:0}
+.tiles b{display:block;font:800 1.75rem/1 var(--d);font-variant-numeric:tabular-nums}
+.tiles span{font-size:.75rem;color:var(--mut)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px}
+svg.ch{width:100%;height:auto;display:block;overflow:visible}
+.ch text{fill:var(--mut);font:600 10px var(--b)}
+.lg{display:flex;gap:14px;margin-top:8px;font-size:.75rem;color:var(--mut)}.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.split b{display:block;font:800 1.25rem var(--d);letter-spacing:.06em;text-transform:uppercase}
+.split p{color:var(--mut);font-size:.8125rem;margin-top:4px}
+.bar{height:8px;border-radius:4px;display:flex;overflow:hidden;margin-top:10px;background:var(--line)}
+.rk{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.rk:last-child{border:0}
+.rk small{display:block;color:var(--mut);font-size:.75rem}
+.rk b{font:800 1.25rem var(--d);font-variant-numeric:tabular-nums}
+.empty{padding:40px 0;text-align:center;color:var(--mut);font:600 .8125rem var(--d);letter-spacing:.16em;text-transform:uppercase}
+@keyframes sh{to{background-position:-200% 0}}@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sk{height:96px;margin-top:14px;border-radius:10px;background:linear-gradient(100deg,color-mix(in srgb,var(--ink) 7%,transparent) 30%,color-mix(in srgb,var(--ink) 15%,transparent) 50%,color-mix(in srgb,var(--ink) 7%,transparent) 70%) 0 0/200% 100%;animation:sh 1.25s linear infinite}
+.in>*{animation:up .35s both}.in>*:nth-child(2){animation-delay:.05s}.in>*:nth-child(3){animation-delay:.1s}.in>*:nth-child(n+4){animation-delay:.15s}
+@media(prefers-reduced-motion:reduce){.sk{animation:none}.in>*{animation:none}}
+dialog{border:1px solid var(--ink);border-radius:10px;background:var(--surface);color:var(--ink);padding:18px;width:min(92vw,400px);margin:auto}
+dialog::backdrop{background:#0009}
+dialog h3{font:800 1.25rem var(--d);letter-spacing:.04em;text-transform:uppercase}
+dialog p{color:var(--mut);font-size:.8125rem;margin:6px 0 12px}
+dialog input{width:100%;min-height:48px;padding:0 12px;font:400 16px var(--b);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px}
+dialog input:focus{outline:2px solid var(--mark);outline-offset:1px}
+.dbt{display:flex;gap:8px;margin-top:14px}
+.dbt button{flex:1;min-height:44px;border-radius:8px;border:1px solid var(--ink);background:none;color:var(--ink);font:700 .875rem var(--b);cursor:pointer}
+.dbt button.p{background:var(--ink);color:var(--bg)}
+.rk .ix{width:22px;font:800 1.1rem var(--d);color:var(--mut)}.rk .tx{flex:1;min-width:0}
+.tap,[data-p],[data-m]{cursor:pointer}.rk.tap:active,.fm:active{opacity:.6}
+.av{position:relative;overflow:hidden;flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font:800 .8125rem var(--d);color:var(--mut)}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.av.big{width:64px;height:64px;font-size:1.25rem}
+.lg2{width:18px;height:18px;object-fit:contain;margin-right:6px;vertical-align:-4px}
+.nm,.rk b.nm{font:600 .9375rem var(--b)}.tapt{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;cursor:pointer}
+.wd,.fm{color:#fff;font-style:normal}.wd{flex:none;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font:800 .8125rem var(--d)}
+.win{background:var(--win)}.draw{background:var(--draw)}.lose{background:var(--lose)}
+.form{display:flex;gap:8px}.fm{flex:1;min-height:52px;border:0;border-radius:8px;font:800 1.1rem var(--d);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}.fm small{font:600 .6875rem var(--b);opacity:.9}
+.sheet{width:min(100vw,560px);max-height:90dvh;margin:auto auto 0;border-radius:14px 14px 0 0;padding:0 var(--pad) calc(24px + env(safe-area-inset-bottom));overflow:auto}
+@media(min-width:600px){.sheet{margin:auto;border-radius:14px}}
+.shh{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;background:var(--surface);padding:6px 0}.shh button{width:44px;height:44px;border:0;background:none;color:var(--ink);font:400 28px/1 var(--b);cursor:pointer}.shh button[hidden]{display:block;visibility:hidden}
+.hero{display:flex;gap:14px;align-items:center;margin:4px 0 12px}.hero h3{font:800 1.5rem/1.1 var(--d);letter-spacing:.03em}
+.sm{font-size:.8125rem}.mut{color:var(--mut)}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;text-align:center;margin:10px 0 4px;font:600 .9375rem var(--b)}.teams .sc{font:800 2rem var(--d)}
+.ev{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.ev i{flex:none;width:42px;color:var(--mut);font-style:normal;font-variant-numeric:tabular-nums}
+.btn{display:block;margin-top:14px;min-height:46px;line-height:46px;text-align:center;border:1px solid var(--ink);border-radius:8px;color:var(--ink);text-decoration:none;font:700 .875rem/46px var(--b)}.btn.p{background:var(--ink);color:var(--bg)}
+.tb>div{display:grid;grid-template-columns:1fr 40px 40px 40px;padding:6px 0;border-bottom:1px solid var(--line);font-size:.8125rem}.tb>div:last-child{border:0}.tb i{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}.th{color:var(--mut);font-weight:600}
+.sheet .tiles{margin-top:8px}.sheet h2{margin-top:20px}
+/* tournament / season dropdown, same look as the Table tab in the main app */
+.m-sp-t{margin-top:16px;font:700 .75rem/1 var(--d);letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.mdds{display:flex;padding:8px 0}.dd{position:relative;flex:1 1 0;min-width:0}
+.ddb{width:100%;min-height:44px;display:flex;align-items:center;gap:8px;text-align:left;padding:0 12px;background:var(--surface);color:var(--ink);border:1px solid var(--ink);border-radius:6px;font:700 .8125rem var(--b);cursor:pointer}
+.ddv{flex:1;min-width:0;display:flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ddv>span,.ddo>span{overflow:hidden;text-overflow:ellipsis}
+.car{width:7px;height:7px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg) translateY(-2px);transition:transform .2s;flex:none}
+.dd.open .car{transform:rotate(225deg) translateY(-2px)}
+.ddl{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:6px;max-height:260px;overflow:auto;box-shadow:0 8px 20px #0003}
+.ddl:not([hidden]){animation:pop .2s cubic-bezier(.23,1,.32,1) both;transform-origin:50% 0}
+.ddo{display:flex;align-items:center;padding:13px 12px;border-bottom:1px solid var(--line);font:600 1rem var(--d);letter-spacing:.04em;cursor:pointer}
+.ddo:last-child{border-bottom:0}.ddo.on{background:color-mix(in srgb,var(--mark) 14%,transparent)}
+.dl{width:22px;height:22px;margin-right:6px;object-fit:contain;flex:none}
+@keyframes pop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ddl:not([hidden]){animation:none}}
+
+/* ---------- motion polish ---------- */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-drawer:cubic-bezier(.32,.72,0,1)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes shUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes dlIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+/* 1 + 3: strong ease-out entrance, 30ms stagger across the first 8 blocks */
+.in>*{animation:up .3s var(--ease-out) both}
+.in>*:nth-child(2){animation-delay:30ms}.in>*:nth-child(3){animation-delay:60ms}.in>*:nth-child(4){animation-delay:90ms}
+.in>*:nth-child(5){animation-delay:120ms}.in>*:nth-child(6){animation-delay:150ms}.in>*:nth-child(7){animation-delay:180ms}.in>*:nth-child(n+8){animation-delay:210ms}
+/* 4 + 14: press = scale .97, instant while held, eased release */
+.btn,.dbt button,.ddb,.fm,.rk.tap,.shh button,.back,.gear{transition:transform .2s var(--ease-out),background-color .2s var(--ease-out)}
+.btn:active,.dbt button:active,.ddb:active,.fm:active,.shh button:active,.back:active,.gear:active{transform:scale(.97);transition-duration:0s}
+.fm:active{opacity:1}
+.rk.tap:active{opacity:1;transform:scale(.985);transition-duration:0s;background:color-mix(in srgb,var(--ink) 5%,transparent)}
+.car{transition:transform .2s var(--ease-out)}
+/* 17: charts and the W/D/L bar wipe in as a mask once the data lands */
+.in svg.ch,.in .bar{animation:wipe .45s var(--ease-out) .12s both}
+/* 11: dropdown grows out of the trigger edge, opening upward ones from the bottom */
+.ddl:not([hidden]){animation:pop .2s var(--ease-out) both}
+/* 2 + 16: sheet rises from the bottom edge, centred dialogs scale in; backdrop fades */
+dialog[open]{animation:dlIn .2s var(--ease-out) both}
+dialog.sheet[open]{animation:shUp .32s var(--ease-drawer) both}
+dialog[open]::backdrop{animation:fade .2s var(--ease-out) both}
+@media(min-width:600px){dialog.sheet[open]{animation:dlIn .2s var(--ease-out) both}}
+@media(hover:hover) and (pointer:fine){.rk.tap:hover{background:color-mix(in srgb,var(--ink) 4%,transparent)}}
+@media(prefers-reduced-motion:reduce){
+  .in>*{animation:fade .2s both}
+  .in svg.ch,.in .bar{animation:none}
+  dialog[open],dialog.sheet[open]{animation:fade .15s both}
+  dialog[open]::backdrop{animation:fade .15s both}
+  .ddl:not([hidden]){animation:fade .15s both}
+  .btn:active,.dbt button:active,.ddb:active,.fm:active,.rk.tap:active,.shh button:active,.back:active,.gear:active{transform:none}
+}
+
+
+/* ---------- 12. creative layer ---------- */
+@keyframes cvRead{to{transform:scaleX(1)}}
+@keyframes cvHdr{to{box-shadow:0 6px 18px -10px #0006}}
+@keyframes cvPill{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+@keyframes cvBar{from{transform:scaleY(.15);opacity:0}to{transform:none}}
+@media(prefers-reduced-motion:no-preference){
+  .cv-pill-sel{animation:cvPill .3s var(--ease-out) backwards}
+}
+@supports(animation-timeline:scroll()){
+@media(prefers-reduced-motion:no-preference){
+  /* a hairline that fills as you read, plus a header shadow that appears once you leave the top */
+  html::after{content:"";position:fixed;left:0;right:0;top:0;height:2px;z-index:60;background:var(--mark);transform:scaleX(0);transform-origin:0 50%;pointer-events:none;animation:cvRead linear both;animation-timeline:scroll(root)}
+  header{animation:cvHdr linear both;animation-timeline:scroll(root);animation-range:0 80px}
+}}
+@media(prefers-reduced-motion:no-preference){
+  .in .tiles>div{animation:up .3s var(--ease-out) backwards}
+  .in .tiles>div:nth-child(1){animation-delay:60ms}.in .tiles>div:nth-child(2){animation-delay:90ms}.in .tiles>div:nth-child(3){animation-delay:120ms}
+  .in .tiles>div:nth-child(4){animation-delay:150ms}.in .tiles>div:nth-child(5){animation-delay:180ms}.in .tiles>div:nth-child(6){animation-delay:210ms}
+  .in .form>.fm,.in .wd{animation:cvPill .3s var(--ease-out) backwards}
+  .in .form>.fm:nth-child(2){animation-delay:40ms}.in .form>.fm:nth-child(3){animation-delay:80ms}.in .form>.fm:nth-child(4){animation-delay:120ms}.in .form>.fm:nth-child(5){animation-delay:160ms}
+}
+
+
+/* ---------- insights panel ---------- */
+@keyframes draw{to{stroke-dashoffset:0}}
+.ins-h{display:flex;align-items:center;justify-content:space-between}
+.spk{margin-top:14px}.spk svg{width:100%;height:auto;display:block;overflow:visible}
+.spk path{fill:none;stroke:var(--mark);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw .9s var(--ease-out) .3s forwards}
+.spk circle{stroke:var(--surface);stroke-width:1.5}
+.spk line{stroke:var(--line);stroke-dasharray:3 4}
+.spk small{display:block;margin-top:4px;color:var(--mut);font-size:.75rem}
+.shr{width:100%;background:none;cursor:pointer;font-family:inherit}
+@media(prefers-reduced-motion:reduce){.spk path{animation:none;stroke-dashoffset:0}}
+</style></head><body>
+<header><a class="home" id="home" href="dinamo-batumi-111.html"><div class="crest" id="crest">D</div><div><h1 id="cname">Dinamo Batumi</h1><small id="csub"></small></div></a><button class="gear" id="gear" aria-label="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg></button></header>
+<div class="ab"><div class="hd"><a class="back" id="back" href="dinamo-batumi-111.html" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><h1 id="ttl">Season analytics</h1><small id="sub"></small></div></div></div>
+<main id="main"><div class="sk"></div><div class="sk" style="height:180px"></div><div class="sk"></div></main>
+<dialog id="st"><h3 id="sth">Settings</h3><p id="stlb">Language</p><div class="dbt"><button id="sten">English</button><button id="stru">Русский</button></div><div class="dbt"><button id="stx">Close</button></div></dialog>
+<dialog id="cfg"><h3 id="bkh">Back button link</h3><p id="bkp">Where the back arrow goes. Saved for everyone, on every device. Leave empty for the default.</p><input id="bkin" type="url" inputmode="url" autocapitalize="off" placeholder="https://… or page.html"><div id="au" hidden style="margin-top:10px"><p style="margin:0 0 6px">Admin sign-in</p><input id="bkem" type="email" autocomplete="username" autocapitalize="off" placeholder="Email"><input id="bkpw" type="password" autocomplete="current-password" placeholder="Password" style="margin-top:8px"></div><p id="bkerr" style="color:var(--lose);margin:8px 0 0"></p><div class="dbt"><button id="bkx">Cancel</button><button id="bkreset">Reset</button><button class="p" id="bksave">Save</button></div></dialog>
+<dialog id="sh" class="sheet"><div class="shh"><button id="shb" hidden>‹</button><button id="shc">×</button></div><div id="shbody"></div></dialog>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+const FIREBASE_CONFIG = { apiKey:"AIzaSyAakV_rFhfgQRh1w0srdpX8ArdNxLPlOP4", authDomain:"dinamo-batumi-perla.firebaseapp.com", databaseURL:"https://dinamo-batumi-perla-default-rtdb.europe-west1.firebasedatabase.app", projectId:"dinamo-batumi-perla", storageBucket:"dinamo-batumi-perla.firebasestorage.app", messagingSenderId:"252337389242", appId:"1:252337389242:web:f9226ed316f733699f8c83" };
+const $ = s => document.querySelector(s), KEY = n => String(n ?? "").trim().toLowerCase();
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const L = o => !o ? [] : (Array.isArray(o) ? o.map((v,i)=>v&&({id:String(i),...v})).filter(Boolean) : Object.entries(o).map(([id,v])=>({id,...v})));
+const rk = id => String(id).replace(/[.0\[\]\/]/g, "_");
+/* language: ?lang=ru|en in the link wins (works across domains / file://), otherwise the main app's saved choice (same origin only) */
+let QL = (() => { try { const v = new URLSearchParams(location.search).get("lang"); return v === "ru" || v === "en" ? v : null; } catch { return null; } })();
+let LANG = "en"; try { LANG = localStorage.getItem("lang") === "ru" ? "ru" : "en"; } catch {}
+if (QL) LANG = QL;
+const R = (en, ru) => LANG === "ru" ? ru : en;
+const plr = (n, a, b, c) => { n = Math.abs(n) % 100; const m = n % 10; return n > 10 && n < 20 ? c : m === 1 ? a : m > 1 && m < 5 ? b : c; };
+let D = null, SEL = "";
+const lib = (src, n) => { if (!KEY(n)) return; if (src === "clubs" && D && KEY(D.club.name) === KEY(n)) return D.club; return D && L(D[src]).find(x => KEY(x.name) === KEY(n)); };
+const lname = (src, n) => { const x = lib(src, n); return (LANG === "ru" && x && x.name_ru) ? x.name_ru : (n ?? ""); };
+const pname = p => (LANG === "ru" && p.name_ru) ? p.name_ru : p.name;
+const clubName = () => D && D.club ? lname("clubs", D.club.name) : R("Dinamo Batumi", "Динамо Батуми");
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.title = R("Season analytics", "Аналитика сезона") + " · " + clubName();
+  $("#ttl").textContent = R("Season analytics", "Аналитика сезона"); $("#sub").textContent = "";
+  const c = D && D.club; $("#cname").textContent = clubName(); $("#csub").textContent = c ? [lname("leagues", c.league), c.city].filter(Boolean).join(" · ") : "";
+  $("#crest").innerHTML = c && c.logo ? '<img src="' + esc(c.logo) + '" alt="">' : esc((c && c.short) || "D");
+  $("#home").setAttribute("aria-label", clubName() + " — " + R("back to the main page", "на главную"));
+  $("#gear").setAttribute("aria-label", R("Settings", "Настройки")); $("#sth").textContent = R("Settings", "Настройки"); $("#stlb").textContent = R("Language", "Язык"); $("#stx").textContent = R("Close", "Закрыть");
+  $("#sten").classList.toggle("p", LANG === "en"); $("#stru").classList.toggle("p", LANG === "ru");
+  $("#back").setAttribute("aria-label", R("Back", "Назад"));
+  $("#bkh").textContent = R("Back button link", "Ссылка кнопки «Назад»");
+  $("#bkp").textContent = R("Where the back arrow goes. Saved for everyone, on every device. Leave empty for the default.", "Куда ведёт стрелка «Назад». Сохраняется для всех, на всех устройствах. Оставьте пустым для ссылки по умолчанию.");
+  $("#bkin").placeholder = R("https://… or page.html", "https://… или page.html");
+  $("#au p").textContent = R("Admin sign-in", "Вход для администратора");
+  $("#bkem").placeholder = R("Email", "Эл. почта"); $("#bkpw").placeholder = R("Password", "Пароль");
+  $("#shb").setAttribute("aria-label", R("Back", "Назад")); $("#shc").setAttribute("aria-label", R("Close", "Закрыть")); $("#bkx").textContent = R("Cancel", "Отмена"); $("#bkreset").textContent = R("Reset", "Сбросить"); $("#bksave").textContent = R("Save", "Сохранить");
+}
+const syr = x => (String(x ?? "").match(/\d{4}/) || [""])[0];
+const seasonOf = m => m.season ? String(m.season) : (isNaN(new Date(m.date)) ? "" : String(new Date(m.date).getFullYear()));
+const gkey = m => KEY(m.comp) + "|" + (syr(seasonOf(m)) || "–");
+
+function groups(){ const me = KEY(D.club.name), mp = new Map();
+  L(D.matches).filter(m => m.status === "FT" && (KEY(m.home) === me || KEY(m.away) === me)).forEach(m => { const k = gkey(m), g = mp.get(k) || {key:k, comp:m.comp, label:[m.comp ? lname("leagues", m.comp) : R("No competition", "Без турнира"), seasonOf(m)].filter(Boolean).join(" · "), ms:[], last:0};
+    g.ms.push(m); g.last = Math.max(g.last, +new Date(m.date) || 0); mp.set(k, g); });
+  return [...mp.values()].sort((a, b) => b.last - a.last); }
+
+/* ---------- helpers shared by the page and the sheets ---------- */
+const V = o => !o ? [] : Object.values(o), sh = $("#sh");
+const LOC = () => LANG === "ru" ? "ru-RU" : "en-GB";
+const fd = (d, o) => isNaN(new Date(d)) ? "" : new Date(d).toLocaleDateString(LOC(), o || {day:"numeric", month:"short"});
+const cnt = (n, e1, eN, r1, r2, r5) => n + " " + (LANG === "ru" ? plr(n, r1, r2, r5) : n === 1 ? e1 : eN);
+const PGM = {GK:"GK", CB:"DF", LB:"DF", RB:"DF", LWB:"DF", RWB:"DF", CDM:"MF", CM:"MF", CAM:"MF", LM:"MF", RM:"MF", LW:"FW", RW:"FW", SS:"FW", CF:"FW", ST:"FW"};
+const GRP = {GK:["Goalkeeper", "Вратарь"], DF:["Defender", "Защитник"], MF:["Midfielder", "Полузащитник"], FW:["Forward", "Нападающий"]};
+const posT = p => { const g = GRP[PGM[p.pos] || p.pos]; return g ? R(g[0], g[1]) : (p.pos || ""); };
+const avt = (p, c) => '<span class="av ' + (c || "") + '">' + esc(p.number ?? "") + (p.photo ? '<img src="' + esc(p.photo) + '" alt="" onerror="this.remove()">' : "") + '</span>';
+const logo = n => { const c = lib("clubs", n); return c && (c.logo || c.image) ? '<img class="lg2" src="' + esc(c.logo || c.image) + '" alt="" onerror="this.remove()">' : ""; };
+const wdl = p => p === 3 ? ["win", R("W", "В")] : p === 1 ? ["draw", R("D", "Н")] : ["lose", R("L", "П")];
+const avg = s => s.rt.length ? s.rt.reduce((t, y) => t + y.v, 0) / s.rt.length : 0;
+const rcol = v => v >= 7 ? "var(--win)" : v >= 6 ? "var(--draw)" : "var(--lose)";
+/* link into the main app: ?lang=…&open=player:ID | match:ID | tab name */
+const addQ = (u, o) => { const i = u.indexOf("#"), h = i < 0 ? "" : u.slice(i); let b = i < 0 ? u : u.slice(0, i);
+  for (const k in o) { b = b.replace(new RegExp("([?&])" + k + "=[^&#]*&?", "g"), "$1").replace(/[?&]$/, ""); b += (b.includes("?") ? "&" : "?") + k + "=" + encodeURIComponent(o[k]); } return b + h; };
+const limg = n => { const l = lib("leagues", n), u = l && (l.logo || l.image); return u ? '<img class="dl" src="' + esc(u) + '" alt="" loading="lazy" onerror="this.remove()">' : ""; };
+const pfLab = x => (x.comp ? limg(x.comp) : "") + "<span>" + esc(x.label) + "</span>";
+const appLink = o => addQ(backUrl(), {lang:LANG, ...o});
+
+/* ---------- derive everything for one tournament/season ---------- */
+let G = null, STK = [];
+function build(g){
+  const me = KEY(D.club.name), pl = L(D.players), IDX = new Map();
+  pl.forEach(p => [p.name, p.name_ru].forEach(n => KEY(n) && IDX.set(KEY(n), p.id)));
+  const pid = x => !x ? undefined : pl.some(p => p.id === x) ? x : IDX.get(KEY(x));
+  const r = g.ms.slice().sort((a, b) => new Date(a.date) - new Date(b.date)).map(m => { const h = KEY(m.home) === me, f = +(h ? m.hs : m.as) || 0, a = +(h ? m.as : m.hs) || 0; return {m, h, f, a, p:f > a ? 3 : f === a ? 1 : 0}; });
+  const PS = new Map(), S = id => PS.get(id) || (PS.set(id, {g:0, a:0, y:0, r:0, app:0, rt:[]}), PS.get(id));
+  r.forEach(x => { const m = x.m, seen = new Set(), lu = m.lineup || {};
+    [...V(lu.start), ...V(lu.subs)].forEach(i => { const q = pid(i); if (q && !seen.has(q)) { seen.add(q); S(q).app++; } });
+    V(m.events).forEach(e => { const t = String(e.type).toLowerCase(), q = pid(e.player);
+      if (t === "goal" || t === "pengoal") { if (q) S(q).g++; const w = pid(e.assist); if (w) S(w).a++; }
+      else if (t === "yellow" && q) S(q).y++; else if ((t === "red" || t === "yellow2") && q) S(q).r++; });
+    Object.entries(m.ratings || {}).forEach(([k, v]) => { v = parseFloat(v); const q = pl.find(p => rk(p.id) === k); if (q && !isNaN(v)) S(q.id).rt.push({m, v}); }); });
+  return G = {g, r, pl, PS, pid, me};
+}
+
+/* ---------- sheets: match and player, they link to each other and to the main app ---------- */
+function shM(id){
+  const m = L(D.matches).find(x => x.id === id); if (!m) return '<div class="empty">' + R("Match not found", "Матч не найден") + '</div>';
+  const ok = m.status === "FT", me = G.me, ET = {goal:"⚽", pengoal:"⚽", owngoal:"⚽ " + R("OG", "авт."), penmiss:"✖", yellow:"🟨", yellow2:"🟨🟨", red:"🟥"};
+  const evs = V(m.events).filter(e => ET[String(e.type).toLowerCase()]).sort((a, b) => ((+a.min || 0) * 100 + (+a.extra || 0)) - ((+b.min || 0) * 100 + (+b.extra || 0)));
+  const nm = e => { const q = G.pid(e.player), p = q && G.pl.find(x => x.id === q); return p ? '<b class="nm tapt" data-p="' + esc(q) + '">' + esc(pname(p)) + '</b>' : esc(e.player || ""); };
+  const ev = evs.map(e => { const t = String(e.type).toLowerCase(), a = (t === "goal" || t === "pengoal") && e.assist ? G.pid(e.assist) : null, ap = a && G.pl.find(x => x.id === a);
+    return '<div class="ev"><i>' + (e.min != null && e.min !== "" ? esc(e.min) + (e.extra ? "+" + esc(e.extra) : "") + "’" : "") + '</i><span>' + ET[t] + " " + nm(e) + (e.assist ? ' <small>(' + (ap ? '<span class="tapt" data-p="' + esc(a) + '">' + esc(pname(ap)) + '</span>' : esc(e.assist)) + ')</small>' : "") + '</span></div>'; }).join("");
+  const rt = Object.entries(m.ratings || {}).map(([k, v]) => ({p:G.pl.find(p => rk(p.id) === k), v:parseFloat(v)})).filter(x => x.p && !isNaN(x.v)).sort((a, b) => b.v - a.v);
+  const comp = [m.comp ? lname("leagues", m.comp) : "", m.stage].filter(Boolean).map(esc).join(" · ");
+  return '<div class="mut sm">' + comp + '</div><div class="teams"><span>' + logo(m.home) + esc(lname("clubs", m.home)) + '</span><b class="sc">' + (ok ? (+m.hs || 0) + " – " + (+m.as || 0) : "vs") + '</b><span>' + logo(m.away) + esc(lname("clubs", m.away)) + '</span></div>'
+  + '<div class="mut sm" style="text-align:center">' + [fd(m.date, {weekday:"short", day:"numeric", month:"long", year:"numeric"}), m.venue].filter(Boolean).map(esc).join(" · ") + '</div>'
+  + '<h2>' + R("Match events", "События матча") + '</h2>' + (ev || '<div class="mut sm">' + R("No events recorded", "События не добавлены") + '</div>')
+  + (rt.length ? '<h2>' + R("Player ratings", "Оценки игроков") + '</h2><div class="card">' + rt.map(x => '<div class="rk tap" data-p="' + esc(x.p.id) + '">' + avt(x.p) + '<span class="tx"><b class="nm">' + esc(pname(x.p)) + '</b><small>' + esc(posT(x.p)) + '</small></span><b style="color:' + rcol(x.v) + '">' + x.v.toFixed(1) + '</b></div>').join("") + '</div>' : "")
+  + '<a class="btn p" href="' + esc(appLink({open:"match:" + id})) + '">' + R("Open match", "Открыть матч") + '</a>';
+}
+function shP(id){
+  const p = G.pl.find(q => q.id === id); if (!p) return '<div class="empty">' + R("Player not found", "Игрок не найден") + '</div>';
+  const s = G.PS.get(id) || {g:0, a:0, y:0, r:0, app:0, rt:[]}, ap = Math.max(s.app, s.rt.length), gk = PGM[p.pos] === "GK", av = avg(s);
+  const fact = (v, l) => v || v === 0 ? '<div><b>' + esc(v) + '</b><span>' + l + '</span></div>' : "";
+  const age = p.born && !isNaN(new Date(p.born)) ? Math.floor((Date.now() - new Date(p.born)) / 31557600000) : "";
+  const ft = {Right:"Правая", Left:"Левая", Both:"Обе"}, hgt = LANG === "ru" ? String(p.height ?? "").replace(/\bcm\b/i, "см") : p.height;
+  const rt = s.rt.slice().sort((a, b) => new Date(a.m.date) - new Date(b.m.date)), n = rt.length, sx = i => 10 + (n < 2 ? 140 : i * 280 / (n - 1)), sy = v => 62 - (Math.min(10, Math.max(5, v)) - 5) / 5 * 52;
+  const spark = n ? '<h2>' + R("Rating by match", "Оценки по матчам") + '</h2><div class="card"><svg class="ch" viewBox="0 0 300 76">' + (n > 1 ? '<path d="' + rt.map((x, i) => (i ? "L" : "M") + sx(i).toFixed(1) + " " + sy(x.v).toFixed(1)).join(" ") + '" fill="none" stroke="var(--line)" stroke-width="2"/>' : "") + rt.map((x, i) => '<circle class="tap" data-m="' + esc(x.m.id) + '" cx="' + sx(i).toFixed(1) + '" cy="' + sy(x.v).toFixed(1) + '" r="6" fill="' + rcol(x.v) + '"/>').join("") + '<text x="10" y="74">' + fd(rt[0].m.date) + '</text><text x="290" y="74" text-anchor="end">' + fd(rt[n - 1].m.date) + '</text></svg><div class="mut sm">' + R("Tap a dot to open the match", "Нажмите на точку, чтобы открыть матч") + '</div></div>' : "";
+  const car = String(p.stats || "").split("\n").map(l => l.split(",").map(x => x.trim())).filter(a => a[0] || a[1]);
+  const career = car.length ? '<h2>' + R("Career stats", "Статистика по сезонам") + '</h2><div class="card tb"><div class="th"><span></span><i>' + R("Apps", "Матчи") + '</i><i>' + (gk ? R("CS", "СМ") : R("G", "Г")) + '</i><i>' + (gk ? R("GA", "ПМ") : R("A", "П")) + '</i></div>' + car.reverse().map(a => '<div><span>' + esc([a[0], a[1]].filter(Boolean).join(" · ")) + '</span><i>' + esc(a[2] || 0) + '</i><i>' + esc(a[3] || 0) + '</i><i>' + esc(a[4] || 0) + '</i></div>').join("") + '</div>' : "";
+  const nat = p.nationality ? lname("nations", p.nationality) : "";
+  return '<div class="hero">' + avt(p, "big") + '<div><div class="mut sm">' + [p.number != null && p.number !== "" ? "#" + esc(p.number) : "", esc(posT(p))].filter(Boolean).join(" · ") + '</div><h3>' + esc(pname(p)) + '</h3><div class="mut sm">' + esc([nat, p.team ? lname("clubs", p.team) : ""].filter(Boolean).join(" · ")) + '</div></div></div>'
+  + '<div class="tiles t3">' + fact(age, R("Age", "Возраст")) + fact(hgt, R("Height", "Рост")) + fact(p.foot && (LANG === "ru" ? ft[p.foot] || p.foot : p.foot), R("Foot", "Нога")) + fact(p.value, R("Market value", "Рыночная стоимость")) + fact(fd(p.contract, {month:"short", year:"numeric"}), R("Contract until", "Контракт до")) + '</div>'
+  + '<h2>' + esc(G.g.label) + '</h2><div class="tiles">' + fact(ap, R("Apps", "Матчи")) + fact(gk ? "–" : s.g, R("Goals", "Голы")) + fact(gk ? "–" : s.a, R("Assists", "Передачи")) + fact(s.y, R("Yellow", "ЖК")) + fact(s.r, R("Red", "КК")) + fact(av ? av.toFixed(2) : "–", R("Avg rating", "Ср. оценка")) + '</div>'
+  + spark + career + '<a class="btn p" href="' + esc(appLink({open:"player:" + id})) + '">' + R("Open full profile", "Открыть полный профиль") + '</a>';
+}
+function paintSh(){ const [k, id] = STK[STK.length - 1] || []; if (!k) return; $("#shb").hidden = STK.length < 2; $("#shbody").innerHTML = k === "p" ? shP(id) : shM(id); sh.scrollTop = 0; }
+function openSh(k, id){ if (!G) return; const t = STK[STK.length - 1]; if (!t || t[0] !== k || t[1] !== id) STK.push([k, id]); paintSh(); if (!sh.open) sh.showModal(); }
+
+/* ---------- the page ---------- */
+function view(){
+  applyLang();
+  const gs = groups(), main = $("#main"); if (!gs.length) { main.innerHTML = '<div class="empty">' + R("No played matches yet", "Сыгранных матчей пока нет") + '</div>'; return; }
+  const g = gs.find(x => x.key === SEL) || gs[0], {r, pl, PS} = build(g);
+  const sum = (x, k) => x.reduce((t, y) => t + y[k], 0), W = r.filter(x => x.p === 3).length, Dr = r.filter(x => x.p === 1).length, Lo = r.length - W - Dr;
+  const split = x => ({n:x.length, pts:sum(x, "p"), f:sum(x, "f"), a:sum(x, "a")}), H = split(r.filter(x => x.h)), A = split(r.filter(x => !x.h));
+  /* goals per match: scored (up) vs conceded (down); every column opens its match */
+  const w = 320, ht = 150, mid = 80, mx = Math.max(3, ...r.map(x => Math.max(x.f, x.a))), cw = (w - 20) / r.length, bw = Math.min(22, cw - 4), sx = i => 10 + (i + .5) * cw, sc = 62 / mx;
+  const bars = r.map((x, i) => '<rect x="' + (sx(i) - bw / 2) + '" y="' + (mid - x.f * sc) + '" width="' + bw + '" height="' + Math.max(x.f * sc, 1) + '" rx="2" fill="var(--win)"/><rect x="' + (sx(i) - bw / 2) + '" y="' + mid + '" width="' + bw + '" height="' + Math.max(x.a * sc, 1) + '" rx="2" fill="var(--lose)"/><rect class="tap" data-m="' + esc(x.m.id) + '" x="' + (sx(i) - cw / 2) + '" y="0" width="' + cw + '" height="' + ht + '" fill="transparent"/>').join("");
+  let c = 0; const pts = r.map(x => c += x.p), pm = Math.max(3, c), py = v => 118 - v / pm * 100, line = pts.map((v, i) => (i ? "L" : "M") + sx(i).toFixed(1) + " " + py(v).toFixed(1)).join(" ");
+  const form = r.slice(-5).reverse().map(x => { const [k, t] = wdl(x.p); return '<button class="fm ' + k + '" data-m="' + esc(x.m.id) + '" aria-label="' + esc(lname("clubs", x.h ? x.m.away : x.m.home)) + '">' + t + '<small>' + x.f + '–' + x.a + '</small></button>'; }).join("");
+  const side = (t, x) => '<div class="card"><b>' + t + '</b><p>' + R(x.n + ' played · ' + x.pts + ' pts', cnt(x.n, "", "", "матч", "матча", "матчей") + ' · ' + cnt(x.pts, "", "", "очко", "очка", "очков")) + '</p><p>' + R(x.f + ' scored, ' + x.a + ' conceded', 'забито ' + x.f + ', пропущено ' + x.a) + '</p><div class="bar"><i style="width:' + (x.n ? x.pts / (x.n * 3) * 100 : 0) + '%;background:var(--mark)"></i></div></div>';
+  const all = pl.map(p => ({p, s:PS.get(p.id) || {g:0, a:0, y:0, r:0, app:0, rt:[]}})).map(x => ({...x, ap:Math.max(x.s.app, x.s.rt.length), av:avg(x.s)}));
+  const lst = (arr, sub, val) => arr.length ? '<div class="card">' + arr.map((x, i) => '<div class="rk tap" data-p="' + esc(x.p.id) + '"><span class="ix">' + (i + 1) + '</span>' + avt(x.p) + '<span class="tx"><b class="nm">' + esc(pname(x.p)) + '</b><small>' + sub(x) + '</small></span><b>' + val(x) + '</b></div>').join("") + '</div>' : "";
+  const apT = x => cnt(x.ap, "", "", "матч", "матча", "матчей");
+  const gsc = all.filter(x => x.s.g).sort((a, b) => b.s.g - a.s.g || b.s.a - a.s.a).slice(0, 5), ast = all.filter(x => x.s.a).sort((a, b) => b.s.a - a.s.a || b.s.g - a.s.g).slice(0, 5);
+  const dsc = all.filter(x => x.s.y + x.s.r).sort((a, b) => b.s.r - a.s.r || b.s.y - a.s.y).slice(0, 5);
+  const top = all.filter(x => x.av && x.s.rt.length >= Math.min(3, r.length)).sort((a, b) => b.av - a.av).slice(0, 5);
+  const sec = (t, h) => h ? '<div><h2>' + t + '</h2>' + h + '</div>' : "";
+  const res = r.slice().reverse().map(x => { const o = x.h ? x.m.away : x.m.home, [k, t] = wdl(x.p);
+    return '<div class="rk tap" data-m="' + esc(x.m.id) + '"><i class="wd ' + k + '">' + t + '</i><span class="tx"><b class="nm">' + logo(o) + esc(lname("clubs", o)) + '</b><small>' + fd(x.m.date) + ' · ' + (x.h ? R("Home", "Дома") : R("Away", "В гостях")) + '</small></span><b>' + x.f + '–' + x.a + '</b></div>'; }).join("");
+  main.innerHTML = '<section><div class="m-sp-t">' + R("Tournament and season", "Турнир и сезон") + '</div><div class="mdds"><div class="dd" id="tbds"><button type="button" class="ddb" aria-haspopup="listbox" aria-label="' + R("Tournament and season", "Турнир и сезон") + '"><span class="ddv">' + pfLab(g) + '</span><i class="car"></i></button><div class="ddl" role="listbox" hidden>' + gs.map(x => '<div class="ddo' + (x.key === g.key ? " on" : "") + '" role="option" aria-selected="' + (x.key === g.key) + '" data-k="' + esc(x.key) + '">' + pfLab(x) + '</div>').join("") + '</div></div></div></section>'
+  + '<div class="in"><div class="tiles"><div><b>' + r.length + '</b><span>' + R("Played", "Матчи") + '</span></div><div><b style="color:var(--win)">' + W + '</b><span>' + R("Wins", "Победы") + '</span></div><div><b>' + Dr + '</b><span>' + R("Draws", "Ничьи") + '</span></div><div><b style="color:var(--lose)">' + Lo + '</b><span>' + R("Losses", "Поражения") + '</span></div><div><b>' + sum(r, "f") + '–' + sum(r, "a") + '</b><span>' + R("Goals", "Голы") + '</span></div><div><b>' + sum(r, "p") + '</b><span>' + R("Points", "Очки") + '</span></div></div>'
+  + '<div><h2>' + R("Form", "Форма") + '</h2><div class="form">' + form + '</div></div>'
+  + '<div><h2>' + R("Goals per match", "Голы по матчам") + '</h2><div class="card"><svg class="ch" viewBox="0 0 ' + w + ' ' + ht + '"><line x1="10" x2="' + (w - 10) + '" y1="' + mid + '" y2="' + mid + '" stroke="var(--line)"/>' + bars + '</svg><div class="lg"><span><i style="background:var(--win)"></i>' + R("Scored", "Забито") + '</span><span><i style="background:var(--lose)"></i>' + R("Conceded", "Пропущено") + '</span></div></div></div>'
+  + '<div><h2>' + R("Points race", "Динамика очков") + '</h2><div class="card"><svg class="ch" viewBox="0 0 ' + w + ' 130"><path d="' + line + '" fill="none" stroke="var(--mark)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' + pts.map((v, i) => '<circle class="tap" data-m="' + esc(r[i].m.id) + '" cx="' + sx(i).toFixed(1) + '" cy="' + py(v).toFixed(1) + '" r="4" fill="var(--mark)"/>').join("") + '<text x="10" y="128">' + R("1st match", "1-й матч") + '</text><text x="' + (w - 10) + '" y="128" text-anchor="end">' + c + ' ' + R("pts", "очк.") + '</text></svg></div></div>'
+  + '<div><h2>' + R("Home vs away", "Дома и в гостях") + '</h2><div class="split">' + side(R("Home", "Дома"), H) + side(R("Away", "В гостях"), A) + '</div></div>'
+  + sec(R("Top scorers", "Бомбардиры"), lst(gsc, x => R(cnt(x.s.a, "assist", "assists") + " · " + cnt(x.ap, "app", "apps"), cnt(x.s.a, "", "", "передача", "передачи", "передач") + " · " + apT(x)), x => x.s.g))
+  + sec(R("Top assists", "Ассистенты"), lst(ast, x => R(cnt(x.s.g, "goal", "goals") + " · " + cnt(x.ap, "app", "apps"), cnt(x.s.g, "", "", "гол", "гола", "голов") + " · " + apT(x)), x => x.s.a))
+  + sec(R("Best rated", "Лучшие по оценкам"), lst(top, x => R(x.s.rt.length + " rated matches", cnt(x.s.rt.length, "", "", "матч с оценкой", "матча с оценкой", "матчей с оценкой")), x => x.av.toFixed(2)))
+  + sec(R("Discipline", "Дисциплина"), lst(dsc, x => "🟨 " + x.s.y + " · 🟥 " + x.s.r, x => x.s.y + x.s.r))
+  + sec(R("Results", "Результаты"), '<div class="card">' + res + '</div>')
+  + '<a class="btn" href="' + esc(appLink({open:"tab:matches"})) + '">' + R("All matches", "Все матчи") + '</a><a class="btn" href="' + esc(appLink({open:"tab:squad"})) + '">' + R("Full squad", "Весь состав") + '</a></div>';
+  $("#sub").textContent = g.label;
+  if (sh.open && STK.length) paintSh();
+}
+/* dropdown: open/close, pick an option, close on outside tap or Escape */
+const ddClose = () => document.querySelectorAll(".dd.open").forEach(d => { d.classList.remove("open"); d.querySelector(".ddl").hidden = true; });
+document.addEventListener("click", e => { const o = e.target.closest(".ddo"), b = e.target.closest(".ddb");
+  if (o) { SEL = o.dataset.k; STK = []; if (sh.open) sh.close(); view(); return; }
+  if (b) { const d = b.closest(".dd"), l = d.querySelector(".ddl"), open = l.hidden; ddClose(); l.hidden = !open; d.classList.toggle("open", open); if (open) { const on = l.querySelector(".on"); if (on) l.scrollTop = on.offsetTop - 60; } return; }
+  if (!e.target.closest(".dd")) ddClose(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") ddClose(); });
+document.addEventListener("click", e => { const t = e.target.closest("[data-p],[data-m]"); if (!t || !G) return; if (t.dataset.p) openSh("p", t.dataset.p); else openSh("m", t.dataset.m); });
+$("#shb").onclick = () => { STK.pop(); paintSh(); };
+$("#shc").onclick = () => sh.close();
+sh.addEventListener("click", e => { if (e.target === sh) sh.close(); });
+sh.addEventListener("close", () => { STK = []; });
+/* deep link from the main app: ?player=ID or ?match=ID opens the sheet on load (once) */
+let DL = (() => { try { const q = new URLSearchParams(location.search); return q.get("player") ? ["p", q.get("player")] : q.get("match") ? ["m", q.get("match")] : null; } catch { return null; } })();
+const deepOpen = () => { if (!DL) return; const [k, id] = DL; DL = null; openSh(k, id); };
+
+firebase.initializeApp(FIREBASE_CONFIG);
+firebase.database().ref("/").on("value", s => { D = {club:{name:"Dinamo Batumi"}, players:{}, matches:{}, ...(s.val() || {})}; syncBack(); view(); deepOpen(); });
+applyLang();
+/* if the language changes in another tab of the main app while this page is open (only when the link did not pin it) */
+addEventListener("storage", e => { if (QL || (e.key && e.key !== "lang")) return; try { LANG = localStorage.getItem("lang") === "ru" ? "ru" : "en"; } catch {} D ? view() : applyLang(); });
+setTimeout(() => { if (!D) $("#main").innerHTML = '<div class="empty">' + R("Couldn’t reach the database", "Не удалось подключиться к базе данных") + '</div>'; }, 8000);
+
+/* hidden setting: tap the title 5 times to choose where the back button leads. Saved in the database, so it is the same on every device. */
+const DEF = "dinamo-batumi-111.html", urlOk = u => !/^\s*(javascript|data|vbscript):/i.test(u);
+const backUrl = () => { const v = String((D && D.club && D.club.backUrl) || "").trim(); return v && urlOk(v) ? v : DEF; };
+const syncBack = () => { $("#back").href = $("#home").href = backUrl(); };
+let taps = 0, tm; $("#ttl").addEventListener("click", () => { clearTimeout(tm); tm = setTimeout(() => taps = 0, 2500); if (++taps >= 5) { taps = 0; const v = (D && D.club && D.club.backUrl) || ""; $("#bkin").value = v; $("#bkerr").textContent = ""; $("#cfg").showModal(); } });
+firebase.auth().onAuthStateChanged(u => { $("#au").hidden = !!u; });
+async function bkSave(reset){ const v = reset ? "" : $("#bkin").value.trim(), er = $("#bkerr"); er.textContent = "";
+  if (v && !urlOk(v)) { er.textContent = R("That link isn't allowed", "Эта ссылка не разрешена"); return; }
+  try { if (!firebase.auth().currentUser) await firebase.auth().signInWithEmailAndPassword($("#bkem").value, $("#bkpw").value);
+    await firebase.database().ref("club/backUrl").set(v); $("#cfg").close(); }
+  catch (e) { er.textContent = e.code === "PERMISSION_DENIED" ? R("Not allowed. Sign in as admin.", "Нет доступа. Войдите как администратор.") : e.message; } }
+function setLang(l){ LANG = l; QL = null; try { localStorage.setItem("lang", l); } catch {} try { const u = new URL(location.href); u.searchParams.delete("lang"); history.replaceState(null, "", u.pathname + u.search + u.hash); } catch {} D ? view() : applyLang(); }
+$("#gear").onclick = () => $("#st").showModal(); $("#sten").onclick = () => setLang("en"); $("#stru").onclick = () => setLang("ru"); $("#stx").onclick = () => $("#st").close();
+$("#bksave").onclick = () => bkSave(false); $("#bkreset").onclick = () => bkSave(true); $("#bkx").onclick = () => $("#cfg").close();
+</script><script>
+/* count-up for whole-number stats when a page of results lands (skipped for reduced motion) */
+(function(){var m=document.getElementById("main");if(!m||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+var busy=false,ease=function(t){return 1-Math.pow(1-t,4)};
+new MutationObserver(function(){if(busy)return;busy=true;
+ m.querySelectorAll(".tiles b:not([data-cu])").forEach(function(b){b.dataset.cu=1;var t=b.textContent.trim();if(!/^\d{1,4}$/.test(t))return;var n=+t;if(n<3)return;var t0=performance.now();
+  (function f(now){var p=Math.min(1,(now-t0)/700);b.textContent=Math.round(n*ease(p));if(p<1)requestAnimationFrame(f);else b.textContent=n})(t0)});
+ busy=false}).observe(m,{childList:true,subtree:true})})();
+</script>
+<script>
+/* insights: streaks, clean sheets, per-game numbers, momentum line, share */
+(function(){var m=document.getElementById("main");if(!m)return;
+function run(){var inn=m.querySelector(".in");if(!inn||inn.querySelector(".ins"))return;
+ try{if(typeof G==="undefined"||!G||!G.r||G.r.length<2)return;var r=G.r,n=r.length,L=function(e,u){return R(e,u)};
+ var last=r[n-1].p,cur=0;for(var i=n-1;i>=0&&r[i].p===last;i--)cur++;
+ var best=function(f){var b=0,c=0;r.forEach(function(x){if(f(x)){c++;b=Math.max(b,c)}else c=0});return b};
+ var gf=0,ga=0,cs=0,pts=0,big=null;r.forEach(function(x){gf+=x.f;ga+=x.a;pts+=x.p;if(x.a===0)cs++;if(x.p===3&&(!big||x.f-x.a>big.f-big.a))big=x});
+ var w=wdl(last),t=function(v,l){return "<div><b>"+v+"</b><span>"+l+"</span></div>"},d1=function(v){return (v/n).toFixed(1)};
+ var run0=0,pp=[];r.forEach(function(x){run0+=x.p;pp.push(run0/(pp.length+1))});
+ var W=300,H=70,px=function(i){return 6+i*(W-12)/(n-1)},py=function(v){return H-6-v/3*(H-12)};
+ var dots=r.map(function(x,i){return '<circle cx="'+px(i).toFixed(1)+'" cy="'+py(pp[i]).toFixed(1)+'" r="3.2" fill="'+(x.p===3?"var(--win)":x.p===1?"var(--draw)":"var(--lose)")+'"/>'}).join("");
+ var line=pp.map(function(v,i){return (i?"L":"M")+px(i).toFixed(1)+" "+py(v).toFixed(1)}).join(" ");
+ var h='<div class="ins"><div class="ins-h"><h2>'+L("Insights","Инсайты")+'</h2></div><div class="tiles">'
+  +t(w[1]+cur,L("Current run","Серия"))+t(best(function(x){return x.p>0}),L("Best unbeaten","Без поражений"))+t(best(function(x){return x.p===3}),L("Best win run","Победная серия"))
+  +t(cs,L("Clean sheets","Сухие матчи"))+t(d1(gf),L("Goals / game","Забито / матч"))+t(d1(ga),L("Conceded / game","Пропущено / матч"))+'</div>'
+  +'<div class="card spk"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+L("Points per game over the season","Очки за матч по ходу сезона")+'"><line x1="6" x2="'+(W-6)+'" y1="'+py(1).toFixed(1)+'" y2="'+py(1).toFixed(1)+'"/><path pathLength="1" d="'+line+'"/>'+dots+'</svg><small>'+L("Points per game, match by match","Очки за матч, по ходу сезона")+' · '+(pts/n).toFixed(2)+(big?" · "+L("Biggest win","Крупнейшая победа")+" "+big.f+"–"+big.a:"")+'</small></div>'
+  +'<button class="btn shr" type="button">'+L("Share summary","Поделиться")+'</button></div>';
+ inn.insertAdjacentHTML("beforeend",h);
+ var btn=inn.querySelector(".shr"),txt=(D.club.name||"")+" · "+G.g.label+"\n"+n+" "+L("played","игр")+", "+r.filter(function(x){return x.p===3}).length+"W "+r.filter(function(x){return x.p===1}).length+"D "+r.filter(function(x){return x.p===0}).length+"L, "+gf+"–"+ga+", "+pts+" "+L("pts","очк.");
+ btn.onclick=function(){var ok=function(){var o=btn.textContent;btn.textContent=L("Copied ✓","Скопировано ✓");setTimeout(function(){btn.textContent=o},1600)};
+  if(navigator.share)navigator.share({text:txt}).catch(function(){});else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(ok)}
+ }catch(e){}}
+new MutationObserver(run).observe(m,{childList:true});run()})();
+</script>
+</body></html>
